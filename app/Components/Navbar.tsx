@@ -21,10 +21,14 @@ const Navbar = () => {
       </div>
 
       <div className="flex gap-1">
-        <button className="btn btn-ghost text-sm">সাইন ইন</button>
-        <button className="btn btn-success bg-[#05893E] text-white text-sm">
-          সাইন আপ
-        </button>
+        <Link href="/sign-in">
+          <button className="btn btn-ghost text-sm">সাইন ইন</button>
+        </Link>
+        <Link href="/sign-up">
+          <button className="btn btn-success bg-[#05893E] text-white text-sm">
+            সাইন আপ
+          </button>
+        </Link>
       </div>
     </div>
   );

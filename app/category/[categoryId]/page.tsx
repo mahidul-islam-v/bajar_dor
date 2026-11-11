@@ -7,8 +7,10 @@ export default function Page({
   params: Promise<{ categoryId: string }>;
 }) {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <div className="container mx-auto">
+      <Suspense fallback={<div>Loading...</div>}>
       <CategoryContent params={params} />
     </Suspense>
+    </div>
   );
 }
