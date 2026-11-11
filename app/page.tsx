@@ -1,17 +1,13 @@
-import Image from "next/image";
-import Navbar from "./Components/Navbar";
-import { Separator } from "@heroui/react";
-import Categories from "./Components/Categories";
-import Marquee from "./Components/Marquee";
+import HeroBanner from "./Components/HeroBanner";
+import ItemSection from "./Components/ItemSection";
 
 export default function Home() {
   return (
     <div>
-      <Navbar></Navbar>
-      <Separator className="opacity-35" />
-      <Categories></Categories>
-      <Separator className="opacity-35" />
-      <Marquee></Marquee>
+      <div className="bg-[#f0f5f0]">
+        <HeroBanner></HeroBanner>
+        <ItemSection></ItemSection>
+      </div>
 
     </div>
   );

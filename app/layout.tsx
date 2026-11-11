@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
 import { Hind_Siliguri } from "next/font/google";
 import "./globals.css";
+import Navbar from "./Components/Navbar";
+import { Separator } from "@heroui/react";
+import Categories from "./Components/Categories";
+import Footer from "./Components/Footer";
+import Marquee from "./Components/Marquee";
+
 
 const hind_siliguri = Hind_Siliguri({
   weight:  ["300", "400", "500", "600", "700"],
@@ -19,7 +25,21 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${hind_siliguri.className} h-full antialiased`}
       data-theme="light"
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <Navbar></Navbar>
+        <Separator className="opacity-75" />
+        <Categories></Categories>
+        <Separator className="opacity-75" />
+        <Marquee></Marquee>
+        <Separator className="opacity-75" />
+
+        <div className="bg-[#f0f5f0] px-4 grow">{children}</div>
+
+        <div className="mt-auto">
+          <Separator className="opacity-75" />
+          <Footer />
+        </div>
+      </body>
     </html>
   );
 }

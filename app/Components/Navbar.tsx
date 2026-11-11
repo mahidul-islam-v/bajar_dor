@@ -1,28 +1,32 @@
-
+import Link from "next/link";
 import Date from "./extra/DateBn";
 
 const Navbar = () => {
   return (
-      <div className="container mx-auto flex justify-between">
-        <div className="flex items-center gap-2">
+    <div className="container mx-auto my-2 flex justify-between px-4">
+      <div className="flex items-center gap-2">
+        <Link href="/">
           <div className=" bg-[#05893E] h-10 w-10 rounded-lg flex items-center justify-center text-2xl">
             🛒
           </div>
-          <div>
+        </Link>
+        <div>
+          <Link href="/">
             <div className="font-bold text-xl">বাজার দর</div>
-            <div className="text-gray-500 text-[12px]">
-              <Date></Date>
-            </div>
+          </Link>
+          <div className="text-gray-500 text-[12px]">
+            <Date></Date>
           </div>
         </div>
-
-        <div>
-          <button className="btn btn-ghost text-sm">সাইন ইন</button>
-          <button className="btn btn-success bg-[#05893E] text-white text-sm">
-            সাইন আপ
-          </button>
-        </div>
       </div>
+
+      <div className="flex gap-1">
+        <button className="btn btn-ghost text-sm">সাইন ইন</button>
+        <button className="btn btn-success bg-[#05893E] text-white text-sm">
+          সাইন আপ
+        </button>
+      </div>
+    </div>
   );
 };
 
