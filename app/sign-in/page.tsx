@@ -1,27 +1,59 @@
 "use client";
 import {
   Button,
-  Description,
   FieldError,
   Form,
   Input,
   Label,
   TextField,
 } from "@heroui/react";
-import { IoCheckmark } from "react-icons/io5";
 
-import React, { useState } from "react";
 import Link from "next/link";
+import { authClient } from "../lib/auth-client";
+import { FaCheckCircle } from "react-icons/fa";
+import toast from "react-hot-toast";
+import { redirect } from "next/navigation";
+import { PiWarningCircleFill } from "react-icons/pi";
 
 const Page = () => {
-  const [password, setPassword] = useState("");
 
-  const onSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
+  const onSubmit = async(e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const user = Object.fromEntries(formData.entries());
+        const user = Object.fromEntries(formData.entries()) as {email: string, password: string}
+    
+    const { data, error } = await authClient.signIn.email({ ...user, callbackURL: "/" })
+    
+    if (data) {
+      toast("Sign-in Succesful", {
+        icon: <FaCheckCircle />,
+        style: {
+          borderRadius: "40px",
+          background: "#f0f5f0",
+          color: "#05893E",
+          fontWeight: "600",
+        },
+      });
+      redirect("/");
+    }
+    if (error) {
+      toast.error("Invalid Credentials", {
+        icon: <PiWarningCircleFill />,
+        style: {
+          borderRadius: "40px",
+          color: "#D03739",
+          fontWeight: "600",
+        },
+      });
+      console.log(error);
+    }
+  };
 
-    console.log(user);
+  const handleGoogleAuth = async () => {
+    await authClient.signIn.social({
+      provider: "google",
+      callbackURL: "/",
+    });
   };
 
   return (
@@ -65,16 +97,12 @@ const Page = () => {
           }}
         >
           <Label>পাসওয়ার্ড</Label>
-          <Input
-            placeholder="কমপক্ষে ৮ অক্ষর"
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full"
-          />
+          <Input placeholder="কমপক্ষে ৮ অক্ষর" className="w-full" />
           <FieldError />
         </TextField>
 
         <div className="flex gap-2">
-          <Button  
+          <Button
             type="submit"
             className="btn btn-success bg-[#05893E] text-white text-sm w-full"
           >
@@ -85,7 +113,10 @@ const Page = () => {
 
         <div className="flex flex-col gap-4">
           <div className="flex gap-2">
-            <button className="btn bg-black text-white font-semibold border-black text-sm rounded-xl px-3 py-2.5">
+            <button
+              type="button"
+              className="btn bg-black text-white font-semibold border-black text-sm rounded-xl px-3 py-2.5"
+            >
               <svg
                 aria-label="GitHub logo"
                 width="16"
@@ -100,7 +131,11 @@ const Page = () => {
               </svg>
               GitHub দিয়ে চালিয়ে যান
             </button>
-            <button className="btn bg-white text-black font-semibold border-[#e5e5e5] text-sm rounded-xl px-3 py-2.5">
+            <button
+              type="button"
+              className="btn bg-white text-black font-semibold border-[#e5e5e5] text-sm rounded-xl px-3 py-2.5"
+              onClick={handleGoogleAuth}
+            >
               <svg
                 aria-label="Google logo"
                 width="16"

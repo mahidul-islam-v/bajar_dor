@@ -6,6 +6,7 @@ import { Separator } from "@heroui/react";
 import Categories from "./Components/Categories";
 import Footer from "./Components/Footer";
 import Marquee from "./Components/Marquee";
+import { Toaster } from "react-hot-toast";
 
 
 const hind_siliguri = Hind_Siliguri({
@@ -39,6 +40,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <Separator className="opacity-75" />
           <Footer />
         </div>
+
+        <Toaster />
       </body>
     </html>
   );

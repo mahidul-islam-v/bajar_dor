@@ -7,10 +7,13 @@ import {
   Label,
   TextField,
 } from "@heroui/react";
-
 import React, { useState } from "react";
 import Link from "next/link";
 import { authClient } from "../lib/auth-client";
+import { redirect } from "next/navigation";
+import toast from "react-hot-toast";
+import { FaCheckCircle } from "react-icons/fa";
+import { PiWarningCircleFill } from "react-icons/pi";
 
 const Page = () => {
   const [password, setPassword] = useState("");
@@ -18,18 +21,47 @@ const Page = () => {
   const onSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const user = Object.fromEntries(formData.entries()) as {name: string, email: string, password: string}
+    const user = Object.fromEntries(formData.entries()) as {
+      name: string;
+      email: string;
+      password: string;
+    };
 
-    console.log(user)
+    const { data, error } = await authClient.signUp.email({
+      ...user,
+      callbackURL: "/",
+    });
 
-    const { data, error } = await authClient.signUp.email({ ...user, callbackURL: "/" })
-    
     if (data) {
-      console.log("succex")
+      toast("Sign-up Succesful", {
+        icon: <FaCheckCircle />,
+        style: {
+          borderRadius: "40px",
+          background: "#f0f5f0",
+          color: "#05893E",
+          fontWeight: "600",
+        },
+      });
+      redirect("/");
     }
     if (error) {
-      console.log(error)
+      toast.error("User Already Exists", {
+        icon: <PiWarningCircleFill />,
+        style: {
+          borderRadius: "40px",
+          color: "#D03739",
+          fontWeight: "600",
+        },
+      });
+      console.log(error);
     }
+  };
+
+  const handleGoogleAuth = async () => {
+    await authClient.signIn.social({
+      provider: "google",
+      callbackURL: "/",
+    });
   };
 
   return (
@@ -114,7 +146,10 @@ const Page = () => {
 
         <div className="flex flex-col gap-4">
           <div className="flex gap-2">
-            <button className="btn bg-black text-white font-semibold border-black text-sm rounded-xl px-3 py-2.5">
+            <button
+              type="button"
+              className="btn bg-black text-white font-semibold border-black text-sm rounded-xl px-3 py-2.5"
+            >
               <svg
                 aria-label="GitHub logo"
                 width="16"
@@ -129,7 +164,11 @@ const Page = () => {
               </svg>
               GitHub দিয়ে চালিয়ে যান
             </button>
-            <button className="btn bg-white text-black font-semibold border-[#e5e5e5] text-sm rounded-xl px-3 py-2.5">
+            <button
+              type="button"
+              className="btn bg-white text-black font-semibold border-[#e5e5e5] text-sm rounded-xl px-3 py-2.5"
+              onClick={handleGoogleAuth}
+            >
               <svg
                 aria-label="Google logo"
                 width="16"

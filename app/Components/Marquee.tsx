@@ -26,7 +26,7 @@ const Marquee = async () => {
                 &nbsp;
                 {toBanglaNumber(product.today)} ৳/{product.unit}{" "}
                 {product.change.dir === "up" ? (
-                  <span className="text-text-[#D03739]">
+                  <span className="text-[#D03739]">
                     ▲ {toBanglaNumber(product.change.pct)}%
                   </span>
                 ) : (

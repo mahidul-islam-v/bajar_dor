@@ -12,7 +12,7 @@ const Categories = async() => {
       <Suspense fallback={<div>Loading...</div>}>
         {data.map((cat: ICategory) => (
           <Link href={`/category/${cat.id}`} key={cat.id}>
-            <button className="btn btn-ghost text-sm px-3 py-1 my-1 t">
+            <button className="btn btn-ghost text-sm px-3 py-1 my-1">
               {cat.icon} {cat.nameBn}
             </button>
           </Link>

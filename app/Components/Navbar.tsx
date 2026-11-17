@@ -1,7 +1,10 @@
 import Link from "next/link";
 import Date from "./extra/DateBn";
+import { Suspense } from "react";
+import SessionButton from "./SessionButton";
 
 const Navbar = () => {
+  
   return (
     <div className="container mx-auto my-2 flex justify-between px-4">
       <div className="flex items-center gap-2">
@@ -21,14 +24,9 @@ const Navbar = () => {
       </div>
 
       <div className="flex gap-1">
-        <Link href="/sign-in">
-          <button className="btn btn-ghost text-sm">সাইন ইন</button>
-        </Link>
-        <Link href="/sign-up">
-          <button className="btn btn-success bg-[#05893E] text-white text-sm">
-            সাইন আপ
-          </button>
-        </Link>
+        <Suspense fallback="...loading">
+          <SessionButton></SessionButton>
+        </Suspense>
       </div>
     </div>
   );
