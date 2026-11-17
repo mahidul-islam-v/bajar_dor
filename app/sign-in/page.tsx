@@ -56,6 +56,13 @@ const Page = () => {
     });
   };
 
+  const handleGithubAuth = async () => {
+      await authClient.signIn.social({
+        provider: "github",
+        callbackURL: "/",
+      });
+    };
+
   return (
     <div className="container mx-auto flex flex-col items-center my-10">
       <div className="flex flex-col items-center mb-4">
@@ -115,6 +122,7 @@ const Page = () => {
           <div className="flex gap-2">
             <button
               type="button"
+              onClick={handleGithubAuth}
               className="btn bg-black text-white font-semibold border-black text-sm rounded-xl px-3 py-2.5"
             >
               <svg
