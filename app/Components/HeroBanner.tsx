@@ -2,6 +2,7 @@ import Image from "next/image";
 import banner from "@/app/assets/bazar-hero.png";
 import DateBn from "./extra/DateBn";
 import React from "react";
+import Link from "next/link";
 
 const HeroBanner = () => {
   return (
@@ -19,9 +20,11 @@ const HeroBanner = () => {
               চাল, ডাল, তেল, সবজি, মাছ, মাংস, ডিম ও মসলার দাম — বাজারভিত্তিক
               বিস্তারিত, গড়, সর্বনিম্ন-সর্বাধিক এবং দামের পরিবর্তন এক জায়গায়।
             </p>
-            <button className="mt-6 px-6 rounded-lg w-fit btn btn-success bg-[#05893E] text-white text-base">
-              সব পণ্য দেখুন
-            </button>
+            <Link href={'#all-product'}>
+              <button className="mt-6 px-6 rounded-lg w-fit btn btn-success bg-[#05893E] text-white text-base">
+                সব পণ্য দেখুন
+              </button>
+            </Link>
           </div>
 
           <div className="card-actions justify-end"></div>

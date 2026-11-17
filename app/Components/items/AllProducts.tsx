@@ -5,7 +5,7 @@ import ItemCard from './ItemCard';
 const AllProducts = ({products}:{products:IProduct[]}) => {
   
   return (
-    <div className='grid grid-cols-3 gap-4'>
+    <div id='all-product' className='grid grid-cols-3 gap-4'>
       {products.map((product: IProduct) => (
                   <ItemCard key={product.id} item={product}></ItemCard>
                 ))}

@@ -2,6 +2,7 @@ import { RiArrowDropDownLine } from "react-icons/ri";
 import { toBanglaNumber } from "../lib/convertNumber";
 import ItemCard from "./items/ItemCard";
 import { IProduct } from "../Interface/product";
+import { notFound } from "next/navigation";
 
 export default async function CategoryContent({
   params,
@@ -14,11 +15,12 @@ export default async function CategoryContent({
     `https://api.api-store.workers.dev/api/bazardor/products?category=${categoryId}`,
   );
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch category products");
+  
+  const data = await res.json();
+  if (!Array.isArray(data) || data.length === 0) {
+    notFound();
   }
 
-  const data = await res.json();
 
   return (
     <div className=" container mx-auto px-4 mt-6 mb-18">
